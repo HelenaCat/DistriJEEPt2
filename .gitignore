@@ -18,7 +18,7 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-/assignment1/CarRental/nbproject/private/
-/assignment1/CarRental-ejb/nbproject/private/
-/assignment1/CarRental-lib/nbproject/private/
-/assignment1/CarRental-client/nbproject/private/
+CarRental/nbproject/private/
+CarRental-ejb/nbproject/private/
+CarRental-lib/nbproject/private/
+CarRental-client/nbproject/private/
