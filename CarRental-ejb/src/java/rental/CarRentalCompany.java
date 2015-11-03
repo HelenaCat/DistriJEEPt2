@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -20,8 +22,12 @@ public class CarRentalCompany implements Serializable{
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
     @Id
     private String name;
-    @OneToMany(cascade = PERSIST)
+    @OneToMany(cascade = ALL)
     private List<Car> cars;
+    //many to many --> want een company kan verschillende CarTypes hebben, 
+    //  maar een CarType kan ook tot verschillende companies behoren 
+    //      (zonder dat de tweede richting navigeerbaar moet zijn)
+    @ManyToMany(cascade = ALL) 
     private Set<CarType> carTypes = new HashSet<CarType>();
 
 

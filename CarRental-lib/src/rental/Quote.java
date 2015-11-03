@@ -10,6 +10,7 @@ public class Quote implements Serializable {
 
     @Temporal(DATE)
     private Date startDate;
+    @Temporal(DATE)
     private Date endDate;
     private String carRenter;
     private String rentalCompany;

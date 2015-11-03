@@ -2,6 +2,8 @@ package rental;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.AUTO;
 import javax.persistence.Id;
 
 @Entity
@@ -9,6 +11,7 @@ public class Reservation extends Quote implements Serializable{
 
     private int carId;
     @Id
+    @GeneratedValue(strategy = AUTO)
     private int id;
     
     /***************
