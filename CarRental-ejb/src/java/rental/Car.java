@@ -4,15 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Car implements Serializable{
 
     @Id
     private int id;
+    @ManyToOne
     private CarType type;
+    @OneToMany(cascade = ALL)
     private Set<Reservation> reservations;
 
     /***************
