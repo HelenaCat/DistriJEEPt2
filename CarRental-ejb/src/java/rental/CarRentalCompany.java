@@ -20,14 +20,14 @@ import javax.persistence.OneToMany;
 public class CarRentalCompany implements Serializable{
 
     private static Logger logger = Logger.getLogger(CarRentalCompany.class.getName());
+    
     @Id
     private String name;
+    
     @OneToMany(cascade = ALL)
     private List<Car> cars;
-    //many to many --> want een company kan verschillende CarTypes hebben, 
-    //  maar een CarType kan ook tot verschillende companies behoren 
-    //      (zonder dat de tweede richting navigeerbaar moet zijn)
-    @ManyToMany(cascade = ALL) 
+  
+    @ManyToMany(cascade = PERSIST) 
     private Set<CarType> carTypes = new HashSet<CarType>();
 
 

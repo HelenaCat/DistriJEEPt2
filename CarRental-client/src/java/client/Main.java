@@ -20,6 +20,10 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
         new Main("trips").run();
     }
     
+    public void addNewCompany(String name){
+        
+    }
+    
     @Override
     protected CarRentalSessionRemote getNewReservationSession(String name) throws Exception {
         CarRentalSessionRemote out = (CarRentalSessionRemote) new InitialContext().lookup(CarRentalSessionRemote.class.getName());

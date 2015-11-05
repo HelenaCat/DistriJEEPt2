@@ -15,8 +15,10 @@ public class Car implements Serializable{
 
     @Id
     private int id;
+    
     @ManyToOne
     private CarType type;
+    
     @OneToMany(cascade = ALL)
     private Set<Reservation> reservations;
 
