@@ -147,4 +147,23 @@ public class ManagerSession implements ManagerSessionRemote {
 
         return cars;
     }
+
+    @Override
+    public String getMostPopularCarRentalCompany() {
+        String popularCompany = "";
+        int nbReservations = 0;
+
+        for (String companyString : this.getAllRentalCompanies()) {
+
+            CarRentalCompany company = em.find(CarRentalCompany.class, companyString);
+
+            int reservationCount = company.getTotalNbReservations();
+            if (reservationCount > nbReservations) {
+                nbReservations = reservationCount;
+                popularCompany = companyString;
+            }
+
+        }
+        return popularCompany;
+    }
 }

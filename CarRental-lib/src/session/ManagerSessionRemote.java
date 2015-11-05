@@ -22,4 +22,6 @@ public interface ManagerSessionRemote {
     public void addNewCompany(String name, String datafile);
     
     public List<String> getAllRentalCompanies();
+
+    public String getMostPopularCarRentalCompany();
 }

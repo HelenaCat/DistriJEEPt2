@@ -187,4 +187,22 @@ public class CarRentalCompany implements Serializable{
         }
         return out;
     }
+
+    public CarType getCheapestCarType(Date start, Date end) {
+        CarType cheapestCarType = null;
+        for (CarType carType : getAvailableCarTypes(start, end)) {
+            if (cheapestCarType == null || carType.getRentalPricePerDay() < cheapestCarType.getRentalPricePerDay()) {
+                cheapestCarType = carType;
+            }
+        }
+        return cheapestCarType;
+    }
+
+    public int getTotalNbReservations() {
+        int nbReservations = 0;
+        for (Car car : cars) {
+            nbReservations += car.getReservations().size();
+        }
+        return nbReservations;
+    }
 }

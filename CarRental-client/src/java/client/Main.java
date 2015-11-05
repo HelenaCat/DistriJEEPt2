@@ -20,8 +20,8 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
         new Main("trips").run();
     }
     
-    public void addNewCompany(String name){
-        
+    public void addNewCompany(String name, String datafile, ManagerSessionRemote session){
+        session.addNewCompany(name, datafile);
     }
     
     @Override
@@ -67,13 +67,11 @@ public class Main extends AbstractTestManagement<CarRentalSessionRemote, Manager
 
     @Override
     protected String getCheapestCarType(CarRentalSessionRemote session, Date start, Date end) throws Exception {
-        System.err.println("To be implemented.");
-        return null;
+        return session.getCheapestCarType(start,end);
     }
 
     @Override
     protected String getMostPopularCarRentalCompany(ManagerSessionRemote ms) throws Exception {
-        System.err.println("To be implemented.");
-        return null;
+        return ms.getMostPopularCarRentalCompany();
     }
 }
