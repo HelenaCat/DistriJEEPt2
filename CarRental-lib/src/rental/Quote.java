@@ -2,10 +2,11 @@ package rental;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import static javax.persistence.TemporalType.DATE;
 
-
+@MappedSuperclass
 public class Quote implements Serializable {
 
     @Temporal(DATE)
@@ -21,6 +22,9 @@ public class Quote implements Serializable {
      * CONSTRUCTOR *
      ***************/
 
+    public Quote(){
+    }
+    
     public Quote(String carRenter, Date start, Date end, String rentalCompany, String carType, double rentalPrice) {
         this.carRenter = carRenter;
         this.startDate = start;

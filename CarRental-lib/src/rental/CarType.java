@@ -17,6 +17,9 @@ public class CarType implements Serializable{
     //trunk space in liters
     private float trunkSpace;
     private int id;
+
+    public CarType() {
+    }
     
     /***************
      * CONSTRUCTOR *

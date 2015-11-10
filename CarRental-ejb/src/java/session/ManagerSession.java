@@ -84,21 +84,39 @@ public class ManagerSession implements ManagerSessionRemote {
     
     public List<String> getAllRentalCompanies(){
         return em.createQuery(
-                "SELECT c.name"
-              + "FROM Company c").getResultList();
+                "SELECT c.name "
+              + "FROM CarRentalCompany c").getResultList();
     }
     
     public List<String> getAllCarTypesFromCompany(String companyName){
         return  em.createQuery(
-                "SELECT t.name"
-                + "FROM CarType t, Company c"
+                "SELECT t.name "
+                + "FROM CarType t, CarRentalCompany c "
                 + "WHERE t.name = :name"
         ).setParameter("name", companyName).getResultList();
     }
     
-    public void addNewCompany(String name, String datafile) {
-        CarRentalCompany company = loadRental(name, datafile);
+    public void addNewCompany(String name) {
+        CarRentalCompany company = new CarRentalCompany(name, null);
         em.persist(company);
+    }
+    
+    public void addNewCarType(String name, int nbOfSeats, float trunkSpace, double rentalPricePerDay, boolean smokingAllowed, String companyName){
+        CarType carType = em.find(CarType.class, name);
+        if(carType == null){
+            CarType type = new CarType(name, nbOfSeats, trunkSpace, rentalPricePerDay, smokingAllowed);
+            em.find(CarRentalCompany.class, companyName).addCarType(type);
+        }
+        else{
+            em.find(CarRentalCompany.class, companyName).addCarType(carType);
+        }
+    }
+    
+    public void addNewCar(int id, String type, String companyName){
+        CarType carType = em.find(CarType.class, type);
+        Car car = new Car(id, carType);
+        CarRentalCompany company = em.find(CarRentalCompany.class, companyName);
+        company.addCar(car);
     }
 
     private CarRentalCompany loadRental(String name, String datafile) {

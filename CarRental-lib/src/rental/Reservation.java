@@ -13,6 +13,9 @@ public class Reservation extends Quote implements Serializable{
     @Id
     @GeneratedValue(strategy = AUTO)
     private int id;
+
+    public Reservation() {
+    }
     
     /***************
      * CONSTRUCTOR *

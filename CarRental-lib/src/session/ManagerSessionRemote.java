@@ -19,9 +19,13 @@ public interface ManagerSessionRemote {
       
     public int getNumberOfReservationsBy(String renter);
     
-    public void addNewCompany(String name, String datafile);
+    public void addNewCompany(String name);
     
     public List<String> getAllRentalCompanies();
 
     public String getMostPopularCarRentalCompany();
+    
+    public void addNewCarType(String name, int nbOfSeats, float trunkSpace, double rentalPricePerDay, boolean smokingAllowed, String companyName);
+    
+    public void addNewCar(int id, String type, String companyName);
 }

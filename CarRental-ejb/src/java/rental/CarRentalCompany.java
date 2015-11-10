@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.ejb.EJBContext;
+import javax.ejb.embeddable.EJBContainer;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.Entity;
@@ -30,6 +33,9 @@ public class CarRentalCompany implements Serializable{
     @ManyToMany(cascade = PERSIST) 
     private Set<CarType> carTypes = new HashSet<CarType>();
 
+    public CarRentalCompany() {
+    }
+
 
     /***************
      * CONSTRUCTOR *
@@ -38,9 +44,11 @@ public class CarRentalCompany implements Serializable{
     public CarRentalCompany(String name, List<Car> cars) {
         logger.log(Level.INFO, "<{0}> Car Rental Company {0} starting up...", name);
         setName(name);
-        this.cars = cars;
-        for (Car car : cars) {
-            carTypes.add(car.getType());
+        if (cars != null){
+            this.cars = cars;
+            for (Car car : cars) {
+                carTypes.add(car.getType());
+            }
         }
     }
 
@@ -86,6 +94,10 @@ public class CarRentalCompany implements Serializable{
         }
         return availableCarTypes;
     }
+    
+    public void addCarType(CarType type) {
+       carTypes.add(type);
+    }
 
     /*********
      * CARS *
@@ -100,6 +112,10 @@ public class CarRentalCompany implements Serializable{
         throw new IllegalArgumentException("<" + name + "> No car with uid " + uid);
     }
 
+    public void addCar(Car car) {
+        cars.add(car);
+    }
+    
     public Set<Car> getCars(CarType type) {
         Set<Car> out = new HashSet<Car>();
         for (Car car : cars) {

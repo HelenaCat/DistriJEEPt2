@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.AUTO;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,6 +16,9 @@ import javax.persistence.OneToMany;
 public class Car implements Serializable{
 
     @Id
+    @GeneratedValue(strategy = AUTO)
+    private int databaseID;
+    
     private int id;
     
     @ManyToOne
@@ -21,6 +26,9 @@ public class Car implements Serializable{
     
     @OneToMany(cascade = ALL)
     private Set<Reservation> reservations;
+
+    public Car() {
+    }
 
     /***************
      * CONSTRUCTOR *

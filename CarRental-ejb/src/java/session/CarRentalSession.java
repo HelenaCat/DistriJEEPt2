@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Resource;
+import javax.ejb.EJBContext;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,8 +20,11 @@ import rental.ReservationException;
 
 @Stateful
 public class CarRentalSession implements CarRentalSessionRemote {
+
+    @Resource
+    private EJBContext context;
     
-@PersistenceContext EntityManager em;
+    @PersistenceContext EntityManager em;
 
     private String renter;
     private List<Quote> quotes = new LinkedList<Quote>();
@@ -27,8 +32,8 @@ public class CarRentalSession implements CarRentalSessionRemote {
     @Override
     public Set<String> getAllRentalCompanies() {
         List<String> list = em.createQuery(
-                "SELECT c.name"
-              + "FROM Company c").getResultList();
+                "SELECT c.name "
+              + "FROM CarRentalCompany c").getResultList();
         Set<String> result = new HashSet<String>(list);
         return result;
     }
@@ -69,8 +74,9 @@ public class CarRentalSession implements CarRentalSessionRemote {
                 done.add(em.find(CarRentalCompany.class, quote.getRentalCompany()).confirmQuote(quote));
             }
         } catch (Exception e) {
-            for(Reservation r:done)
-                em.find(CarRentalCompany.class, r.getRentalCompany()).cancelReservation(r);
+            context.setRollbackOnly();
+            //for(Reservation r:done)
+            //    em.find(CarRentalCompany.class, r.getRentalCompany()).cancelReservation(r);
             throw new ReservationException(e);
         }
         return done;
