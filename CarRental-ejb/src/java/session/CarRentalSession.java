@@ -71,7 +71,7 @@ public class CarRentalSession implements CarRentalSessionRemote {
         List<Reservation> done = new LinkedList<Reservation>();
         try {
             for (Quote quote : quotes) {
-                done.add(em.find(CarRentalCompany.class, quote.getRentalCompany()).confirmQuote(quote));
+               done.add(em.find(CarRentalCompany.class, quote.getRentalCompany()).confirmQuote(quote));
             }
         } catch (Exception e) {
             context.setRollbackOnly();

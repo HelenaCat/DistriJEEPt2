@@ -74,12 +74,17 @@ public class ManagerSession implements ManagerSessionRemote {
 
     @Override
     public int getNumberOfReservationsBy(String renter) {
-        Set<Reservation> out = new HashSet<Reservation>();
+        /*Set<Reservation> out = new HashSet<Reservation>();
         for(String crcString : this.getAllRentalCompanies()) {
             CarRentalCompany crc = em.find(CarRentalCompany.class, crcString);
             out.addAll(crc.getReservationsBy(renter));
         }
-        return out.size();
+        return out.size(); */
+
+        return em.createQuery(
+                "SELECT COUNT(r) "
+                + "FROM Reservation r "
+                + "WHERE r.carRenter = :name").setParameter("name", renter).getFirstResult();
     }
     
     public List<String> getAllRentalCompanies(){
