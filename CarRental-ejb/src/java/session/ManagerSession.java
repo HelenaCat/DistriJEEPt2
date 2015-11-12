@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContext;
 import rental.Car;
 import rental.CarRentalCompany;
 import rental.CarType;
-import rental.RentalStore;
 import rental.Reservation;
 
 @Stateless
@@ -126,14 +125,14 @@ public class ManagerSession implements ManagerSessionRemote {
 
     private CarRentalCompany loadRental(String name, String datafile) {
         CarRentalCompany company = null;
-        Logger.getLogger(RentalStore.class.getName()).log(Level.INFO, "loading {0} from file {1}", new Object[]{name, datafile});
+        Logger.getLogger(ManagerSession.class.getName()).log(Level.INFO, "loading {0} from file {1}", new Object[]{name, datafile});
         try {
             List<Car> cars = loadData(datafile);
             company = new CarRentalCompany(name, cars);
         } catch (NumberFormatException ex) {
-            Logger.getLogger(RentalStore.class.getName()).log(Level.SEVERE, "bad file", ex);
+            Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, "bad file", ex);
         } catch (IOException ex) {
-            Logger.getLogger(RentalStore.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerSession.class.getName()).log(Level.SEVERE, null, ex);
         }
         return company;
     }
@@ -145,7 +144,7 @@ public class ManagerSession implements ManagerSessionRemote {
         int nextuid = 0;
 
         //open file from jar
-        BufferedReader in = new BufferedReader(new InputStreamReader(RentalStore.class.getClassLoader().getResourceAsStream(datafile)));
+        BufferedReader in = new BufferedReader(new InputStreamReader(ManagerSession.class.getClassLoader().getResourceAsStream(datafile)));
         //while next line exists
         while (in.ready()) {
             //read line
